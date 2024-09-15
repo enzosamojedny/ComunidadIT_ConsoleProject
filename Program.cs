@@ -4,34 +4,53 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Juguemos un juego. Esto es sencillo: Hay dos números aleatorios, del 1 al 20");
-            Console.WriteLine("El programa tiene un loop que itera un máximo de 20 veces, comparando esos dos números en cada iteración.");
-            Console.WriteLine("Tu objetivo es adivinar cuántas iteraciones tomará para que los dos números sean iguales.");
-            Console.WriteLine("Para jugar, solo tenés que escribir a continuación un número del 1 al 20.");
+            Console.WriteLine("Juguemos un juego. Esto es sencillo: Tenés que adivinar el número correcto.");
+            Console.WriteLine("Dato: se usa el alg de Fisher-Yates, para hacer que el número sea siempre random.");
+            Console.WriteLine("Para jugar, solo tenés que escribir a continuación un número del 1 al 10.");
             Random random = new Random();
 
+            //parseo a int para poder usarlo en la comparacion más adelante
             var userInput = int.Parse(Console.ReadLine());
-            if (userInput > 20)
+
+            //caso fuera de límites
+            if (userInput > 10)
             {
                 Console.WriteLine("Elegiste un número demasiado alto!");
+                return;
             }
             else if (userInput < 1)
             {
                 Console.WriteLine("Elegiste un número demasiado bajo!");
+                return;
             }
             Console.Clear();
+            //agrego el thread.sleep para que solo se limpien los writeline
             Thread.Sleep(100);
+
             int[] arr1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             int[] arr2 = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
+            //mergeo los arrays en uno solo
             var mergedArrays = arr1.Concat(arr2).ToArray();
+
+            //selecciono un index random, desde 0 a arr.length
             int randomNumber = random.Next(0, mergedArrays.Length);
+
+            //hago un shuffle de los arrays con igual probabilidad de que toque cualquier numero
 
             for (int j = mergedArrays.Length - 1; j > 0; j--)
             {
-                int k = random.Next(0, j + 1);//random index entre 0 e i
+                //random index entre 0 y j(inclusive)
+                int k = random.Next(0, j + 1);
+
+                // asigno el indice de j en una variable temporal
                 int temp = mergedArrays[j];
+
+                //cambio el indice de j por el indice del indice aleatorio
                 mergedArrays[j] = mergedArrays[k];
+
+                //asigno el valor de temp (reemplazo mergedArrays[j] por el indice random K)
+                //lo cual asegura que el numero sea lo mas aleatorio posible
                 mergedArrays[k] = temp;
             }
             var randomValue = mergedArrays[randomNumber];

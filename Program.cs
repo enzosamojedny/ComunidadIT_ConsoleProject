@@ -33,11 +33,7 @@
             //mergeo los arrays en uno solo
             var mergedArrays = arr1.Concat(arr2).ToArray();
 
-            //selecciono un index random, desde 0 a arr.length
-            int randomNumber = random.Next(0, mergedArrays.Length);
-
             //hago un shuffle de los arrays con igual probabilidad de que toque cualquier numero
-
             for (int j = mergedArrays.Length - 1; j > 0; j--)
             {
                 //random index entre 0 y j(inclusive)
@@ -46,14 +42,15 @@
                 // asigno el indice de j en una variable temporal
                 int temp = mergedArrays[j];
 
-                //cambio el indice de j por el indice del indice aleatorio
+                //cambio el indice de j por el indice aleatorio
                 mergedArrays[j] = mergedArrays[k];
 
                 //asigno el valor de temp (reemplazo mergedArrays[j] por el indice random K)
                 //lo cual asegura que el numero sea lo mas aleatorio posible
                 mergedArrays[k] = temp;
             }
-            var randomValue = mergedArrays[randomNumber];
+            //como mergedArrays ya esta mezclado, solo selecciono el primer numero y va a ser siempre diferente
+            var randomValue = mergedArrays[0];
 
             if (userInput == randomValue)
             {
